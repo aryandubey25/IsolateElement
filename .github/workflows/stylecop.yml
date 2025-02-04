@@ -1,4 +1,4 @@
-name: StyleCop Code Analysis
+name: StyleCop Static Code Analysis
 
 on:
   push:
@@ -9,8 +9,10 @@ on:
       - main
 
 jobs:
-  stylecop:
+  static-checks:
+    name: Run StyleCop Analysis
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -18,13 +20,13 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '8.0.x' # Change to match your project's .NET version
+          dotnet-version: '8.0.x' # Update based on your project
 
       - name: Restore Dependencies
         run: dotnet restore
 
-      - name: Build Project
+      - name: Build Project with StyleCop
         run: dotnet build --no-restore --warnaserror
 
-      - name: Run StyleCop Analysis
-        run: dotnet build /warnaserror
+      - name: Run Static Analysis
+        run: dotnet build /warnaserror || echo "::error::StyleCop violations found!"
