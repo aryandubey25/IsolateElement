@@ -1,36 +1,21 @@
-﻿using Autodesk.Revit.Attributes;
-using Autodesk.Revit.DB;
-using Autodesk.Revit.UI;
-using Autodesk.Revit.UI.Selection;
+﻿using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
+using System.Windows.Markup;
 
 namespace IsolateElement
 {
-    [Transaction(TransactionMode.Manual)]
     public class CheckElementCommand : IExternalCommand
     {
         private static List<ElementId> hiddenElements = new List<ElementId>();
         private static bool isIsolated = false;
+        private object ObjectType;
 
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-            UIDocument uidoc = commandData.Application.ActiveUIDocument;
-            Document doc = uidoc.Document;
-
             if (isIsolated)
             {
-                
-                using (Transaction t = new Transaction(doc, "Unhide Elements"))
-                {
-                    t.Start();
-                    foreach (var hiddenElementId in hiddenElements)
-                    {
-                        doc.ActiveView.UnhideElements(new List<ElementId> { hiddenElementId });
-                    }
-                    hiddenElements.Clear();
-                    t.Commit();
-                }
+                hiddenElements.Clear();
                 isIsolated = false;
                 TaskDialog.Show("Isolate Element", "All elements restored.");
             }
@@ -38,30 +23,8 @@ namespace IsolateElement
             {
                 try
                 {
-                    Reference pickedRef = uidoc.Selection.PickObject(ObjectType.Element, "Select an element to isolate");
-                    Element selectedElement = doc.GetElement(pickedRef.ElementId);
-
-                   
-                    using (Transaction t = new Transaction(doc, "Isolate Element"))
-                    {
-                        t.Start();
-                        
-                        FilteredElementCollector collector = new FilteredElementCollector(doc, doc.ActiveView.Id)
-                            .WhereElementIsNotElementType()
-                            .Excluding(new List<ElementId> { selectedElement.Id });
-
-                        
-                        foreach (Element e in collector)
-                        {
-                            doc.ActiveView.HideElements(new List<ElementId> { e.Id });
-                            hiddenElements.Add(e.Id);
-                        }
-
-                        t.Commit();
-                    }
-
                     isIsolated = true;
-                    TaskDialog.Show("Isolate Element", $"Element {selectedElement.Name} is now isolated.");
+                    TaskDialog.Show("Isolate Element", $"Element is now isolated.");
                 }
                 catch (Exception ex)
                 {
@@ -72,5 +35,20 @@ namespace IsolateElement
 
             return Result.Succeeded;
         }
+
+        private class ElementId
+        {
+        }
+    }
+    public class ElementSet
+    {
+    }
+
+    public class ExternalCommandData
+    {
+    }
+
+    public interface IExternalCommand
+    {
     }
 }
