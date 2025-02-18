@@ -8,13 +8,13 @@ namespace IsolateElement
     using System.Reflection;
     using System.Windows.Media.Imaging;
 
-#pragma warning disable SA1600 // Elements should be documented
+#pragma warning disable SA1600
     public class Class1 : IExternalApplication
-#pragma warning restore SA1600 // Elements should be documented
+#pragma warning restore SA1600
     {
-#pragma warning disable SA1600 // Elements should be documented
+#pragma warning disable SA1600
         public Result OnStartup(UIControlledApplication application)
-#pragma warning restore SA1600 // Elements should be documented
+#pragma warning restore SA1600
         {
             RibbonPanel ribbonPanel = application.CreateRibbonPanel("Isolate Element");
 
@@ -30,9 +30,9 @@ namespace IsolateElement
             return Result.Succeeded;
         }
 
-#pragma warning disable SA1600 // Elements should be documented
+#pragma warning disable SA1600
         public Result OnShutdown(UIControlledApplication application)
-#pragma warning restore SA1600 // Elements should be documented
+#pragma warning restore SA1600
         {
             return Result.Succeeded;
         }
