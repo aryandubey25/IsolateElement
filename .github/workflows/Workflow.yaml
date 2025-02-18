@@ -25,7 +25,7 @@ jobs:
       - name: Build with StyleCop validation
         run: |
           # Treat StyleCop warnings as errors
-          dotnet build ./YourSolution.sln \
+          dotnet build ./IsolateElement.sln \
             --configuration Release \
             --p:CodeAnalysisTreatWarningsAsErrors=true \
             --p:TreatWarningsAsErrors=true \
