@@ -30,7 +30,6 @@ jobs:
             --p:RunCodeAnalysis=true `
             --p:CodeAnalysisTreatWarningsAsErrors=true `
             --p:TreatWarningsAsErrors=true `
-            --p:CodeAnalysisRuleSet=StyleCop `
             --warnaserror
 
       - name: Run Nuke build
