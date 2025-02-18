@@ -23,12 +23,14 @@ jobs:
           dotnet-version: 8.0.406
 
       - name: Build with StyleCop validation
+        shell: pwsh  # Explicit PowerShell core
         run: |
-          # Treat StyleCop warnings as errors
-          dotnet build ./YourSolution.sln \
-            --configuration Release \
-            --p:CodeAnalysisTreatWarningsAsErrors=true \
-            --p:TreatWarningsAsErrors=true \
+          dotnet build ./IsolateElement.sln `
+            --configuration Release `
+            --p:RunCodeAnalysis=true `
+            --p:CodeAnalysisTreatWarningsAsErrors=true `
+            --p:TreatWarningsAsErrors=true `
+            --p:CodeAnalysisRuleSet=MinimumRecommendedRules `
             --warnaserror
 
       - name: Run Nuke build
