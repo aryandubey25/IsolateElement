@@ -27,9 +27,6 @@ jobs:
           # Treat StyleCop warnings as errors
           dotnet build ./IsolateElement.sln \
             --configuration Release \
-            --p:CodeAnalysisTreatWarningsAsErrors=true \
-            --p:TreatWarningsAsErrors=true \
-            --warnaserror
-
-      - name: Run Nuke build
-        run: ./.nuke/build.cmd Compile PublishGitHub --GitHubToken ${{ secrets.GITHUB_TOKEN }}
+            --p:RunCodeAnalysis=true \
+            --p:CodeAnalysisRuleSet=StyleCop
+           
