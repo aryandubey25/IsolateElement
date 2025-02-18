@@ -22,9 +22,6 @@ jobs:
         with:
           dotnet-version: 8.0.406
 
-      - name: Restore NuGet packages
-        run: dotnet restore ./IsolateElement.sln
-
       - name: Build with StyleCop validation
         shell: pwsh
         run: |
