@@ -22,12 +22,14 @@ jobs:
         with:
           dotnet-version: 8.0.406
 
+      - name: Restore NuGet packages
+        run: dotnet restore ./IsolateElement.sln
+
       - name: Build with StyleCop validation
-        shell: pwsh  # Explicit PowerShell core
+        shell: pwsh
         run: |
           dotnet build ./IsolateElement.sln `
             --configuration Release `
-            --p:RunCodeAnalysis=true `
             --p:CodeAnalysisTreatWarningsAsErrors=true `
             --p:TreatWarningsAsErrors=true `
             --warnaserror
