@@ -26,7 +26,7 @@ namespace IsolateElement
             Uri iconPath = new Uri(@"""C:\Users\Aryan.Dubey\Desktop\Revit Internship\Icons\Hierachy.png");
             BitmapImage buttonImage = new BitmapImage(iconPath);
             pushButton.LargeImage = buttonImage;
-            return null;
+            return Result.Succeeded;
         }
 
 #pragma warning disable SA1600
@@ -79,8 +79,12 @@ namespace IsolateElement
 
     public class Result
     {
-        internal static Result Failed;
-        internal static Result Succeeded;
+        internal static readonly Result Succeeded = new Result();
+        internal static readonly Result Failed = new Result();
+
+        private Result()
+        {
+        }
     }
 
     public interface IExternalApplication
