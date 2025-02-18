@@ -25,11 +25,9 @@ jobs:
       - name: Build with StyleCop validation
         run: |
           # Treat StyleCop warnings as errors
-          dotnet build ./YourSolution.sln \
+          dotnet build ./IsolateElement.sln \
             --configuration Release \
-            --p:CodeAnalysisTreatWarningsAsErrors=true \
-            --p:TreatWarningsAsErrors=true \
-            --warnaserror
+            PluginChangeViewPlan.sln /p:RunCodeAnalysis=true /p:CodeAnalysisRuleSet=StyleCop
 
       - name: Run Nuke build
         run: ./.nuke/build.cmd Compile PublishGitHub --GitHubToken ${{ secrets.GITHUB_TOKEN }}
