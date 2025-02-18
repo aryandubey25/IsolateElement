@@ -25,12 +25,12 @@ jobs:
       - name: Build with StyleCop validation
         shell: pwsh  # Explicit PowerShell core
         run: |
-          dotnet build ./IsolateElement.sln \
-            --configuration Release \
-            --p:RunCodeAnalysis=true \
-            --p:CodeAnalysisTreatWarningsAsErrors=true \
-            --p:TreatWarningsAsErrors=false \
-            --p:CodeAnalysisRuleSet=StyleCop \
+          dotnet build ./IsolateElement.sln `
+            --configuration Release `
+            --p:RunCodeAnalysis=true `
+            --p:CodeAnalysisTreatWarningsAsErrors=true `
+            --p:TreatWarningsAsErrors=true `
+            --p:CodeAnalysisRuleSet=StyleCop `
             --warnaserror
 
       - name: Run Nuke build
