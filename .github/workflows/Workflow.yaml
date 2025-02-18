@@ -23,7 +23,15 @@ jobs:
           dotnet-version: 8.0.406
 
       - name: Build with StyleCop validation
-        run: dotnet build IsolateElement.sln /p:RunCodeAnalysis=true /p:CodeAnalysisRuleSet=StyleCop /p:Configuration="Release"
+        shell: pwsh  # Explicit PowerShell core
+        run: |
+          dotnet build ./IsolateElement.sln `
+            --configuration Release `
+            --p:RunCodeAnalysis=true `
+            --p:CodeAnalysisTreatWarningsAsErrors=true `
+            --p:TreatWarningsAsErrors=true `
+            --p:CodeAnalysisRuleSet=StyleCop `
+            --warnaserror
 
       - name: Run Nuke build
         run: ./.nuke/build.cmd Compile PublishGitHub --GitHubToken ${{ secrets.GITHUB_TOKEN }}
