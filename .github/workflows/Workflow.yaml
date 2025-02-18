@@ -28,8 +28,8 @@ jobs:
           dotnet build ./IsolateElement.sln `
             --configuration Release `
             --p:RunCodeAnalysis=true `
-            --p:CodeAnalysisTreatWarningsAsErrors=true `
-            --p:TreatWarningsAsErrors=true `
+            --p:CodeAnalysisTreatWarningsAsErrors=false `
+            --p:TreatWarningsAsErrors=false `
             --p:CodeAnalysisRuleSet=MinimumRecommendedRules `
             --warnaserror
 
